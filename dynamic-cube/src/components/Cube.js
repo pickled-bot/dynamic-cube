@@ -4,12 +4,12 @@ import * as THREE from 'three';
 
 const Cube = (props) => {
 
-    const mainCube = () => {
+    
         // creating a scene
         const scene = new THREE.Scene();
         // const canvas = document.querySelector('#canvas');
         const renderer = new THREE.WebGLRenderer();
-        renderer.setSize(window.innerWidth*0.5, window.innerHeight*0.5);
+        renderer.setSize(window.innerWidth*0.9, window.innerHeight*0.9);
         document.body.appendChild(renderer.domElement);
     
         //camera//
@@ -43,19 +43,19 @@ const Cube = (props) => {
         const cube = new THREE.Mesh(geometry, material);
         scene.add(cube);
         
-        const animate = () => {
+        const toggleAnimate = () => {
             cube.rotation.x += 0.01;
             cube.rotation.y += 0.01;
-            requestAnimationFrame( animate );
+            requestAnimationFrame( toggleAnimate );
             renderer.render(scene, camera);
         };
-        animate();
-    };
+        toggleAnimate();
+
 
     return (
-        <canvas id="canvas">{mainCube()}</canvas>
+        <canvas id="canvas">{Cube}</canvas>
     );
 
-}
+};
 
 export default Cube;
