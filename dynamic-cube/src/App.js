@@ -1,5 +1,5 @@
 import './App.css';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 // import Cube from './components/Cube.js';
 import * as THREE from 'three';
 
@@ -17,7 +17,7 @@ function App() {
     setButtonText(newText);
   };
 
-  const mainCube = () => {
+    useEffect(() => {
     // physical components of cube 
     
     // create a scene //
@@ -100,7 +100,7 @@ function App() {
         renderer.render(scene, camera);
         // controls.update();
     };
-  };
+  });
   // toggleRotation function
   // pass in the animate() function
   // create a state handler for rotation and set rotation (true/false)
@@ -120,7 +120,7 @@ function App() {
       <main>
         <h1>dynamic cube generator</h1>
         <button onClick={rotationButtonTxtToggle}>{buttonText}</button>
-        {mainCube()}
+        {/* {useEffect()} */}
       </main>
     </body>
   );
