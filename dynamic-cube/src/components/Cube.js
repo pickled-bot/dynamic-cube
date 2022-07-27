@@ -6,6 +6,8 @@ import threeOrbitControls from 'three-orbit-controls';
 
 
 const Cube = (props) => {
+        // physical components of cube 
+        
         // create a scene //
         const scene = new THREE.Scene();
         scene.background = new THREE.Color("#2f3e46");
@@ -14,7 +16,7 @@ const Cube = (props) => {
         const renderer = new THREE.WebGLRenderer({antialias: true});
         renderer.setPixelRatio(window.devicePixelRatio.pixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(renderer.domElement);
+        document.body.appendChild(renderer.domElement); // is there a better way to do this with react 
         
 
         //camera//
