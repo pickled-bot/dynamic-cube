@@ -2,7 +2,7 @@ import React from 'react';
 // import PropTypes from 'prop-types';
 import * as THREE from 'three';
 import threeOrbitControls from 'three-orbit-controls';
-import oc from 'three-orbit-controls';
+
 
 
 const Cube = (props) => {
@@ -16,8 +16,6 @@ const Cube = (props) => {
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
         
-        // introducing OrbitControls
-        const OrbitControls = oc(THREE);
 
         //camera//
         // field of view, vertical direction, in degrees //
@@ -32,7 +30,8 @@ const Cube = (props) => {
         // cameras position // 
         camera.position.z = 1.5;
     
-        
+        // let controls = new threeOrbitControls(camera, renderer.domElement);
+        // controls.listenToKeyEvents(window);
         // controls.update();
 
         // const controls = new OrbitControls(camera, renderer.domElement);
@@ -82,12 +81,13 @@ const Cube = (props) => {
             handleRender();
         };
 
+        window.addEventListener("resize", onWindowResize, false);
+
         const handleRender = () => {
             renderer.render(scene, camera);
             // controls.update();
         };
         
-        onWindowResize();
 
     return (
         <canvas id="canvas">{Cube}</canvas>
