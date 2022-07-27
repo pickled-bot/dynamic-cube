@@ -1,15 +1,22 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 import * as THREE from 'three';
+import threeOrbitControls from 'three-orbit-controls';
+import oc from 'three-orbit-controls';
 
 
 const Cube = (props) => {
-        // creating a scene
+        // create a scene //
         const scene = new THREE.Scene();
-        // const canvas = document.querySelector('#canvas');
+        scene.background = new THREE.Color("#2f3e46");
+        // !! create renderer !! //
         const renderer = new THREE.WebGLRenderer();
+        renderer.setPixelRatio(window.devicePixelRatio.pixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
+
+        // introducing OrbitControls
+        // const OrbitControls = oc(THREE);
     
         //camera//
         // field of view, vertical direction, in degrees //
@@ -21,9 +28,14 @@ const Cube = (props) => {
         const far =  100;
         // camera "frustrum" - 3D pyramid
         const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+
+        // const controls = new OrbitControls(camera, renderer.domElement);
     
         // cameras position // 
-        camera.position.z = 2;
+        camera.position.z = 1.5;
+        // controls.update();
+
+    
     
     
         const boxWidth = 1;
@@ -36,23 +48,24 @@ const Cube = (props) => {
         const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth,
             bwSegments, bhSegments, bdSegments);
     
-    
-        const material = new THREE.MeshBasicMaterial({color: "purple"});
-    
+        const material = new THREE.MeshBasicMaterial({color: "#84a98c"});
         const cube = new THREE.Mesh(geometry, material);
         scene.add(cube);
+        // controls.update();
         
         const toggleAnimate = () => {
             const animate = true;
             if (animate) {
-                cube.rotation.x += 0.01;
-                cube.rotation.y += 0.01;
+                cube.rotation.x += 0.005;
+                cube.rotation.y += 0.005;
                 requestAnimationFrame( toggleAnimate );
+                // controls.update();
                 renderer.render(scene, camera);
             } else {
                 cube.rotation.x += 0;
                 cube.rotation.y += 0;
                 requestAnimationFrame( toggleAnimate );
+                // controls.update();
             }; 
         };
         toggleAnimate();
@@ -62,11 +75,13 @@ const Cube = (props) => {
             camera.updateProjectionMatrix();
 
             renderer.setSize((window.innerWidth), (window.innerHeight));
+            // controls.update();
             handleRender();
         };
 
         const handleRender = () => {
             renderer.render(scene, camera);
+            // controls.update();
         };
         
         onWindowResize();
