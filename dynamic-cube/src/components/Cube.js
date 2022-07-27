@@ -2,14 +2,13 @@ import React from 'react';
 // import PropTypes from 'prop-types';
 import * as THREE from 'three';
 
-const Cube = (props) => {
 
-    
+const Cube = (props) => {
         // creating a scene
         const scene = new THREE.Scene();
         // const canvas = document.querySelector('#canvas');
         const renderer = new THREE.WebGLRenderer();
-        renderer.setSize(window.innerWidth*0.9, window.innerHeight*0.9);
+        renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
     
         //camera//
@@ -44,13 +43,33 @@ const Cube = (props) => {
         scene.add(cube);
         
         const toggleAnimate = () => {
-            cube.rotation.x += 0.01;
-            cube.rotation.y += 0.01;
-            requestAnimationFrame( toggleAnimate );
-            renderer.render(scene, camera);
+            const animate = true;
+            if (animate) {
+                cube.rotation.x += 0.01;
+                cube.rotation.y += 0.01;
+                requestAnimationFrame( toggleAnimate );
+                renderer.render(scene, camera);
+            } else {
+                cube.rotation.x += 0;
+                cube.rotation.y += 0;
+                requestAnimationFrame( toggleAnimate );
+            }; 
         };
         toggleAnimate();
 
+        const onWindowResize = () => {
+            camera.aspect = (window.innerWidth)/(window.innerHeight);
+            camera.updateProjectionMatrix();
+
+            renderer.setSize((window.innerWidth), (window.innerHeight));
+            handleRender();
+        };
+
+        const handleRender = () => {
+            renderer.render(scene, camera);
+        };
+        
+        onWindowResize();
 
     return (
         <canvas id="canvas">{Cube}</canvas>
