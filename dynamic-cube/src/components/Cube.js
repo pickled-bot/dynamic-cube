@@ -9,15 +9,16 @@ const Cube = (props) => {
         // create a scene //
         const scene = new THREE.Scene();
         scene.background = new THREE.Color("#2f3e46");
+
         // !! create renderer !! //
-        const renderer = new THREE.WebGLRenderer();
+        const renderer = new THREE.WebGLRenderer({antialias: true});
         renderer.setPixelRatio(window.devicePixelRatio.pixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
-
+        
         // introducing OrbitControls
-        // const OrbitControls = oc(THREE);
-    
+        const OrbitControls = oc(THREE);
+
         //camera//
         // field of view, vertical direction, in degrees //
         const fov = 75;
@@ -28,12 +29,14 @@ const Cube = (props) => {
         const far =  100;
         // camera "frustrum" - 3D pyramid
         const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+        // cameras position // 
+        camera.position.z = 1.5;
+    
+        
+        // controls.update();
 
         // const controls = new OrbitControls(camera, renderer.domElement);
     
-        // cameras position // 
-        camera.position.z = 1.5;
-        // controls.update();
 
     
     
