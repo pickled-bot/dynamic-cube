@@ -2,15 +2,11 @@ import './App.css';
 import React, {useState, useEffect, useRef} from 'react';
 // import Cube from './components/Cube.js';
 import * as THREE from 'three';
-import oc from 'three-orbit-controls';
 
 function App() {
   const [buttonText, setButtonText] = useState("rotation off");
   let newText = "";
 
-  
-  const mountRef = useRef(null);
-  
   const rotationButtonTxtToggle = () => {
     if (buttonText === "rotation off") {
       newText = "rotation on";
@@ -19,6 +15,9 @@ function App() {
     }
     setButtonText(newText);
   };
+
+    const mountRef = useRef(null);
+    
     useEffect(() => {
       console.log("inside useEffect");
     // physical components of cube 
@@ -47,11 +46,7 @@ function App() {
     // cameras position // 
     camera.position.z = 1.5;
 
-    // const OrbitControls = oc(THREE);
-    // const controls = new OrbitControls(camera, renderer.domElement);
-    // controls.keyPanSpeed = 2;
-    // controls.rotateSpeed = 2;
-    // controls.maxDistance = 10;
+    // let controls = new threeOrbitControls(camera, renderer.domElement);
     // controls.listenToKeyEvents(window);
     // controls.update();
 
