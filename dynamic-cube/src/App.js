@@ -1,5 +1,5 @@
 import './App.css';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 // import Cube from './components/Cube.js';
 import * as THREE from 'three';
 
@@ -16,6 +16,8 @@ function App() {
     setButtonText(newText);
   };
 
+    const mountRef = useRef(null);
+    
     useEffect(() => {
       console.log("inside useEffect");
     // physical components of cube 
@@ -28,7 +30,7 @@ function App() {
     const renderer = new THREE.WebGLRenderer({antialias: true});
     renderer.setPixelRatio(window.devicePixelRatio.pixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(renderer.domElement); // is there a better way to do this with react 
+    mountRef.current.appendChild(renderer.domElement); // is there a better way to do this with react 
     
 
     //camera//
@@ -101,6 +103,7 @@ function App() {
         renderer.render(scene, camera);
         // controls.update();
     };
+    return () => mountRef.current.removeChild(renderer.domElement);
   }, []);
 
 
@@ -123,6 +126,7 @@ function App() {
       <main>
         <h1>dynamic cube generator</h1>
         <button onClick={rotationButtonTxtToggle}>{buttonText}</button>
+        <div ref={mountRef}></div>
         {/* {useEffect()} */}
       </main>
     </div>
