@@ -8,7 +8,6 @@ function App() {
   let newText = "";
 
   const rotationButtonTxtToggle = () => {
-    
     if (buttonText === "rotation off") {
       newText = "rotation on";
     } else {
@@ -18,6 +17,7 @@ function App() {
   };
 
     useEffect(() => {
+      console.log("inside useEffect");
     // physical components of cube 
     
     // create a scene //
@@ -70,17 +70,18 @@ function App() {
     // controls.update();
     
     const toggleAnimate = () => {
-        const animate = true;
-        if (animate) {
+        if (buttonText === "rotation off") {
             cube.rotation.x += 0.005;
             cube.rotation.y += 0.005;
             requestAnimationFrame( toggleAnimate );
             // controls.update();
             renderer.render(scene, camera);
-        } else {
-            cube.rotation.x += 0;
-            cube.rotation.y += 0;
-            requestAnimationFrame( toggleAnimate );
+        } else if (buttonText === "rotation on") {
+            cube.rotation.x = 0;
+            cube.rotation.y = 0;
+            // requestAnimationFrame( !toggleAnimate );
+            renderer.render(scene, camera);
+
             // controls.update();
         }; 
     };
@@ -100,7 +101,9 @@ function App() {
         renderer.render(scene, camera);
         // controls.update();
     };
-  });
+  }, []);
+
+
   // toggleRotation function
   // pass in the animate() function
   // create a state handler for rotation and set rotation (true/false)
@@ -116,13 +119,13 @@ function App() {
   
 
   return (
-    <body>
+    <div>
       <main>
         <h1>dynamic cube generator</h1>
         <button onClick={rotationButtonTxtToggle}>{buttonText}</button>
         {/* {useEffect()} */}
       </main>
-    </body>
+    </div>
   );
 }
 
