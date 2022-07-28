@@ -1,6 +1,7 @@
 import './App.css';
 import React, {useState, useEffect, useRef} from 'react';
 // import Cube from './components/Cube.js';
+import extend from "react-three-fiber";
 import * as THREE from 'three';
 import oc from 'three-orbit-controls';
 
