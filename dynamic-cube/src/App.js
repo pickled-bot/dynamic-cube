@@ -3,8 +3,10 @@ import React, {useState, useEffect, useRef} from 'react';
 // import Cube from './components/Cube.js';
 import * as THREE from 'three';
 
+
 function App() {
   const [buttonText, setButtonText] = useState("rotation off");
+  const animate = useRef(true);
   let newText = "";
 
   const rotationButtonTxtToggle = () => {
@@ -14,7 +16,12 @@ function App() {
       newText = "rotation off"
     }
     setButtonText(newText);
+    // setAnimate();
   };
+
+  // const setAnimate = () => {
+  //   animate.current = !animate.current;
+  // };
 
     const mountRef = useRef(null);
     
@@ -49,13 +56,13 @@ function App() {
     // let controls = new threeOrbitControls(camera, renderer.domElement);
     // controls.listenToKeyEvents(window);
     // controls.update();
-
+    
     // const controls = new OrbitControls(camera, renderer.domElement);
-
-
-
-
-
+    
+    
+    
+    
+    
     const boxWidth = 1;
     const boxHeight = 1;
     const boxDepth = 1;
@@ -64,16 +71,23 @@ function App() {
     const bdSegments = 1;
     
     const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth,
-        bwSegments, bhSegments, bdSegments);
+      bwSegments, bhSegments, bdSegments);
+      
+      const material = new THREE.MeshBasicMaterial({color: "#84a98c"});
+      const cube = new THREE.Mesh(geometry, material);
+      scene.add(cube);
+      // controls.update();
 
-    const material = new THREE.MeshBasicMaterial({color: "#84a98c"});
-    const cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
-    // controls.update();
-    
-    const toggleAnimate = () => {
+      // controls !!
+      // const controls = new DragControls( cube, camera, renderer.domElement);
+      // controls.addEventListener('dragstart', function(event)
+      // {
+      //   event.object.material.emissive.set(0x000000);
+      // });
+      
+      const toggleAnimate = () => {
         if (buttonText === "rotation off") {
-            cube.rotation.x += 0.005;
+          cube.rotation.x += 0.005;
             cube.rotation.y += 0.005;
             requestAnimationFrame( toggleAnimate );
             // controls.update();
@@ -83,9 +97,9 @@ function App() {
             cube.rotation.y = 0;
             // requestAnimationFrame( !toggleAnimate );
             renderer.render(scene, camera);
-
-            // controls.update();
+            requestAnimationFrame(toggleAnimate.paused())
         }; 
+
     };
     toggleAnimate();
 
@@ -93,15 +107,12 @@ function App() {
         camera.aspect = (window.innerWidth)/(window.innerHeight);
         camera.updateProjectionMatrix();
         renderer.setSize((window.innerWidth), (window.innerHeight));
-        // controls.update();
         handleRender();
     };
 
-    window.addEventListener("resize", onWindowResize, false);
 
     const handleRender = () => {
         renderer.render(scene, camera);
-        // controls.update();
     };
     return () => mountRef.current.removeChild(renderer.domElement);
   }, []);
