@@ -2,7 +2,7 @@ import './App.css';
 import React, {useState, useEffect, useRef} from 'react';
 // import Cube from './components/Cube.js';
 import * as THREE from 'three';
-
+import {Canvas, useFrame} from '@react-three/fiber';
 
 function App() {
   const [buttonText, setButtonText] = useState("rotation off");
@@ -127,7 +127,7 @@ function App() {
   // change the rotation speed to x 0/ y 0
   // change the button text to "rotate on"
   // if rotation turned back onto true
-  // set rotation speed to x 0.1 / y 0.1
+  // set rotation speed to x 0.1 /  y 0.1
 
   // add on click for the button toggle
   
