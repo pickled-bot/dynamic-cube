@@ -72,7 +72,7 @@ const App = () => {
       <div id="canvasContainer">
         <Canvas camera={{position:[1,1,1], zoom:1}} gl={{antialias:false}}>
           <ambientLight />
-          <directionalLight position={[0,0,3]}/>
+          <directionalLight position={[6,3,12]}/>
           <CubeRendering animate={animate}/>
         </Canvas>
       </div>
