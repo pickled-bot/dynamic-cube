@@ -7,8 +7,17 @@ import {Canvas, useFrame} from '@react-three/fiber';
 // import { AmbientLight, BoxGeometry, MeshStandardMaterial } from 'three';
 import {OrbitControls} from '@react-three/drei'
 
+
+// const CubeRendering = ({animate}) => {
+//   return (
+//     <Cube
+//     animate = {animate}/>
+//   );
+// };
+
+
 const Cube = () => {
-  const [rotate, setRotate] = useState(false);
+  // const [rotate, setRotate] = useState(false);
   let boxWidth = 1;
   let boxHeight = 1;
   let boxDepth = 1;
@@ -19,8 +28,10 @@ const Cube = () => {
   const cubeRef = useRef();
 
   useFrame(() => {
-      cubeRef.current.rotation.y += 0.005;
-      cubeRef.current.rotation.x += 0.005;
+      // if (animate.current) {
+        cubeRef.current.rotation.y += 0.005;
+        cubeRef.current.rotation.x += 0.005;
+      // }
   });
 
   // const toggleRotate = () => {
@@ -43,7 +54,7 @@ const Cube = () => {
 
 const App = () => {
   const [buttonText, setButtonText] = useState("rotation off");
-  // const animate = useRef(true);
+  const animate = useRef(true);
   let newText = "";
 
   
@@ -67,7 +78,7 @@ const App = () => {
       <div>
         <button onClick={() =>
           {rotationButtonTxtToggle();
-          }}>{buttonText}</button>
+          (animate.current = !animate.current)}}>{buttonText}</button>
       </div>
       <div id="canvasContainer">
         <Canvas camera={{position:[1,1,1], zoom:1}} gl={{antialias:false}}>
