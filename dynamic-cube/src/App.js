@@ -8,15 +8,15 @@ import {Canvas, useFrame} from '@react-three/fiber';
 import {OrbitControls} from '@react-three/drei'
 
 
-// const CubeRendering = ({animate}) => {
-//   return (
-//     <Cube
-//     animate = {animate}/>
-//   );
-// };
+const CubeRendering = ({animate}) => {
+  return (
+    <Cube
+    animate = {animate}/>
+  );
+};
 
 
-const Cube = () => {
+const Cube = ({animate}) => {
   // const [rotate, setRotate] = useState(false);
   let boxWidth = 1;
   let boxHeight = 1;
@@ -28,10 +28,10 @@ const Cube = () => {
   const cubeRef = useRef();
 
   useFrame(() => {
-      // if (animate.current) {
+      if (animate.current) {
         cubeRef.current.rotation.y += 0.005;
         cubeRef.current.rotation.x += 0.005;
-      // }
+      }
   });
 
   // const toggleRotate = () => {
@@ -84,7 +84,7 @@ const App = () => {
         <Canvas camera={{position:[1,1,1], zoom:1}} gl={{antialias:false}}>
           <ambientLight />
           <directionalLight position={[0,0,3]}/>
-          <Cube/>
+          <CubeRendering animate={animate}/>
         </Canvas>
       </div>
     </div>
