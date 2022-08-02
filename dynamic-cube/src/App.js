@@ -17,7 +17,6 @@ const CubeRendering = ({animate}) => {
 
 
 const Cube = ({animate}) => {
-  // const [rotate, setRotate] = useState(false);
   let boxWidth = 1;
   let boxHeight = 1;
   let boxDepth = 1;
@@ -27,21 +26,13 @@ const Cube = ({animate}) => {
 
   const cubeRef = useRef();
 
-  useFrame(() => {
+  useFrame((state) => {
       if (animate.current) {
         cubeRef.current.rotation.y += 0.005;
         cubeRef.current.rotation.x += 0.005;
       }
   });
 
-  // const toggleRotate = () => {
-  //   if (cubeRef.current.rotation.y !== 0) {
-  //     cubeRef.current.rotation.y += 0.005;
-  //   } else {
-  //     cubeRef.current.rotation.y = 0;
-  //   };
-  // };
-  // const toggleRotate = setRotate(!rotate);
 
   return (
     <mesh ref={cubeRef} >
@@ -59,14 +50,12 @@ const App = () => {
 
   
   const rotationButtonTxtToggle = () => {
-
     if (buttonText === "rotation off") {
       newText = "rotation on";
     } else {
       newText = "rotation off"
     }
     setButtonText(newText);
-    // setAnimate();
   };
 
 
