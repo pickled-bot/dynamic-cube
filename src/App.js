@@ -5,7 +5,7 @@ import React, {useState, useRef} from 'react';
 // import * as THREE from 'three';
 import {Canvas, useFrame} from '@react-three/fiber';
 // import { AmbientLight, BoxGeometry, MeshStandardMaterial } from 'three';
-import {OrbitControls} from '@react-three/drei'
+import {OrbitControls, softShadows} from '@react-three/drei'
 
 
 const CubeRendering = ({animate}) => {
@@ -38,7 +38,10 @@ const Cube = ({animate}) => {
     <mesh ref={cubeRef} >
       <boxGeometry args={[boxWidth,boxHeight,boxDepth, bwSegments, bhSegments, bdSegments]} />
       <meshStandardMaterial color={"#84a98c"}/>
-      <OrbitControls />
+      <OrbitControls 
+      zoomSpeed={0.25} 
+      minZoom={40}
+      maxZoom={1000}/>
     </mesh>
   );
 };
@@ -71,9 +74,9 @@ const App = () => {
           (animate.current = !animate.current)}}>{buttonText}</button>
       </div>
       <div id="canvasContainer">
-        <Canvas camera={{position:[1,1,1], zoom:1}} gl={{antialias:false}}>
-          <ambientLight />
-          <directionalLight position={[6,3,12]}/>
+        <Canvas camera={{position:[1,1,1], zoom:300}} gl={{antialias:false}} orthographic shadows dpr={[1,2]}>
+          <ambientLight/>
+          <directionalLight position={[6,3,12]} castShadow intensity={2}/>
           <CubeRendering animate={animate}/>
         </Canvas>
       </div>
