@@ -5,8 +5,10 @@ import React, {useState, useRef} from 'react';
 // import * as THREE from 'three';
 import {Canvas, useFrame} from '@react-three/fiber';
 // import { AmbientLight, BoxGeometry, MeshStandardMaterial } from 'three';
+import {OrbitControls} from '@react-three/drei'
 
 const Cube = () => {
+  const [rotate, setRotate] = useState(false);
   let boxWidth = 1;
   let boxHeight = 1;
   let boxDepth = 1;
@@ -14,17 +16,27 @@ const Cube = () => {
   let bhSegments = 1;
   let bdSegments = 1;
 
-  const cubeRef = useRef(true);
+  const cubeRef = useRef();
 
   useFrame(() => {
-    cubeRef.current.rotation.y += 0.005;
-    cubeRef.current.rotation.x += 0.005;
+      cubeRef.current.rotation.y += 0.005;
+      cubeRef.current.rotation.x += 0.005;
   });
 
+  // const toggleRotate = () => {
+  //   if (cubeRef.current.rotation.y !== 0) {
+  //     cubeRef.current.rotation.y += 0.005;
+  //   } else {
+  //     cubeRef.current.rotation.y = 0;
+  //   };
+  // };
+  // const toggleRotate = setRotate(!rotate);
+
   return (
-    <mesh ref={cubeRef} rotateX={Math.PI *0.25} rotateY={Math.PI * 0.25}>
+    <mesh ref={cubeRef} >
       <boxGeometry args={[boxWidth,boxHeight,boxDepth, bwSegments, bhSegments, bdSegments]} />
       <meshStandardMaterial color={"#84a98c"}/>
+      <OrbitControls />
     </mesh>
   );
 };
@@ -36,6 +48,7 @@ const App = () => {
 
   
   const rotationButtonTxtToggle = () => {
+
     if (buttonText === "rotation off") {
       newText = "rotation on";
     } else {
@@ -54,13 +67,13 @@ const App = () => {
       <div>
         <button onClick={() =>
           {rotationButtonTxtToggle();
-          (Cube.cubeRef.current = !Cube.cubeRef.current)}}>{buttonText}</button>
+          }}>{buttonText}</button>
       </div>
       <div id="canvasContainer">
         <Canvas camera={{position:[1,1,1], zoom:1}} gl={{antialias:false}}>
           <ambientLight />
           <directionalLight position={[0,0,3]}/>
-          <Cube animate={Cube.cubeRef} />
+          <Cube/>
         </Canvas>
       </div>
     </div>
