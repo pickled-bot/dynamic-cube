@@ -37,6 +37,7 @@ const Cube = ({animate}) => {
   return (
     <mesh ref={cubeRef} >
       <boxGeometry args={[boxWidth,boxHeight,boxDepth, bwSegments, bhSegments, bdSegments]} />
+      {/* <planeGeometry args={[boxWidth,boxHeight]}/> */}
       <meshStandardMaterial color={"#84a98c"}/>
       <OrbitControls 
       zoomSpeed={0.25} 
@@ -48,6 +49,7 @@ const Cube = ({animate}) => {
 
 const App = () => {
   const [buttonText, setButtonText] = useState("rotation off");
+  const [color, setColor] = useState("#84a98c");
   const animate = useRef(true);
   let newText = "";
 
@@ -68,10 +70,21 @@ const App = () => {
       <header>
         <h1>dynamic cube generator</h1>
       </header>
-      <div>
+      <div id="buttons">
         <button onClick={() =>
           {rotationButtonTxtToggle();
-          (animate.current = !animate.current)}}>{buttonText}</button>
+          (animate.current = !animate.current)}}>{buttonText}
+        </button>
+        <button id="red">
+          red
+        </button>
+        <button id="yellow">
+          yellow
+        </button>
+        <button id="blue">
+          blue
+        </button>
+
       </div>
       <div id="canvasContainer">
         <Canvas camera={{position:[1,1,1], zoom:300}} gl={{antialias:false}} orthographic shadows dpr={[1,2]}>
