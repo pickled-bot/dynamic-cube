@@ -14,6 +14,9 @@ const CubeRendering = ({animate}) => {
     animate = {animate}/>
   );
 };
+// add a propery color
+// use ref to get color
+// onclick for each button to change the cube to that color
 
 
 const Cube = ({animate}) => {
@@ -62,6 +65,10 @@ const App = () => {
     }
     setButtonText(newText);
   };
+
+  const setCubeColor = (newColor) => {
+    setColor(newColor);
+  }
 
 
   return (
