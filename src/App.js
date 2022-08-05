@@ -50,6 +50,23 @@ const Cube = ({animate}) => {
   );
 };
 
+const ToggleColor = (props) => {
+  return (
+  <section className="colorButtons">
+    <button id="red">
+    red
+    </button>
+    <button id="yellow">
+      yellow
+    </button>
+    <button id="blue">
+      blue
+    </button>
+  </section>
+  )
+};
+
+
 const App = () => {
   const [buttonText, setButtonText] = useState("rotation off");
   const [color, setColor] = useState("#84a98c");
@@ -78,20 +95,11 @@ const App = () => {
         <h1>dynamic cube generator</h1>
       </header>
       <div id="buttons">
-        <button onClick={() =>
+        <button id="animateBtn" onClick={() =>
           {rotationButtonTxtToggle();
           (animate.current = !animate.current)}}>{buttonText}
         </button>
-        <button id="red">
-          red
-        </button>
-        <button id="yellow">
-          yellow
-        </button>
-        <button id="blue">
-          blue
-        </button>
-
+        <ToggleColor />
       </div>
       <div id="canvasContainer">
         <Canvas camera={{position:[1,1,1], zoom:300}} gl={{antialias:false}} orthographic shadows dpr={[1,2]}>
