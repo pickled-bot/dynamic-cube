@@ -1,6 +1,6 @@
 import './App.css';
 import ReactDOM from 'react-dom';
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useCallback} from 'react';
 // import Cube from './components/Cube.js';
 import * as THREE from 'three';
 import {Canvas, useFrame} from '@react-three/fiber';
@@ -14,6 +14,8 @@ const green = new THREE.Color("#84a98c");
 const orange = new THREE.Color("#f4a261");
 const purple = new THREE.Color("#7678ed");
 
+const colorArray = [{color:red, label: 'red'}, {color: orange, label: 'orange'}, {color:yellow, label: 'yellow'},
+{color:green, label: 'green'},  {color: blue, label:'blue'}, {color: purple, label: 'purple'}];
 
 const CubeRendering = ({animate, color}) => {
   return (
@@ -22,9 +24,6 @@ const CubeRendering = ({animate, color}) => {
     color = {color}/>
   );
 };
-// add a propery color
-// use ref to get color
-// onclick for each button to change the cube to that color
 
 
 const Cube = ({animate, color}) => {
@@ -44,12 +43,11 @@ const Cube = ({animate, color}) => {
       }
   });
 
-
   return (
     <mesh ref={cubeRef} >
       <boxGeometry args={[boxWidth,boxHeight,boxDepth, bwSegments, bhSegments, bdSegments]} />
       {/* <planeGeometry args={[boxWidth,boxHeight]}/> */}
-      <meshStandardMaterial color={green} clipShadows={true}/>
+      <meshStandardMaterial color={color} clipShadows={true}/>
       <OrbitControls 
       zoomSpeed={0.25} 
       minZoom={40}
@@ -58,32 +56,22 @@ const Cube = ({animate, color}) => {
   );
 };
 
-const ToggleColor = (props) => {
+
+const ToggleColor = ({setCubeColor}) => {
   return (
-  <section className="colorButtons">
-    <button id="red" onClick={()=>{
-      props.color = red;
-    }}>
-    red
-    </button>
-    <button id="orange">
-    orange
-    </button>
-    <button id="yellow">
-      yellow
-    </button>
-    <button id="green">
-      green
-    </button>
-    <button id="blue">
-      blue
-    </button>
-    <button id="purple">
-      purple
-    </button>
-  </section>
-  )
+    <section className="colorButtons">
+      {colorArray.map((item, i) => {
+        const {color, label} = item;
+        return (
+          <button id={label} onClick={() => {
+            setCubeColor(color);
+          }} key = {label}>{label}</button>
+        )
+      })}
+    </section>
+  );
 };
+
 
 const Instructions = () => {
   return (
@@ -113,6 +101,7 @@ const Instructions = () => {
   )
 }
 
+
 const App = () => {
   const [buttonText, setButtonText] = useState("rotation off");
   const [color, setColor] = useState("#84a98c");
@@ -129,10 +118,10 @@ const App = () => {
     setButtonText(newText);
   };
 
-  const setCubeColor = (newColor) => {
-    setColor(newColor);
-  }
 
+  const setCubeColor = useCallback((newColor) =>{
+    setColor(newColor);
+  }, [setColor])  
 
   return (
 
@@ -146,18 +135,27 @@ const App = () => {
           {rotationButtonTxtToggle();
           (animate.current = !animate.current)}}>{buttonText}
         </button>
-        <ToggleColor />
+        <ToggleColor setCubeColor={setCubeColor}/>
       </div>
       <div id="canvasContainer">
         <Canvas camera={{position:[1,1,1], zoom:300}} gl={{antialias:false}} orthographic shadows dpr={[1,2]}>
           <ambientLight intensity={0.5}/>
           <directionalLight position={[3,1,6]} castShadow intensity={0.5}/>
-          <CubeRendering animate={animate}/>
+          <CubeRendering animate={animate} color={color}/>
         </Canvas>
       </div>
+      <footer>
+      <p>
+      &#169; shelby r faulconer, ada c17 capstone project, 2022
+      </p>
+      <p>
+      space photo from NASA image gallery
+      </p>
+      </footer>
     </div>
   );
 }
+
 
 ReactDOM.render(<App/>, document.getElementById('root'));
 export default App;

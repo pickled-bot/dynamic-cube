@@ -63,10 +63,10 @@ button {
     font-size: 1.5rem;
 }
 
+
+
 #red {
     background-color: #f28482;
-    margin-left: 1vw;
-    margin-right: 1vw;
 }
 
 #red:hover {
@@ -80,6 +80,7 @@ button {
 
 #orange {
     background-color: #f4a261;
+    margin-left: 1vw;
     margin-right: 1vw;
 }
 
@@ -94,7 +95,6 @@ button {
 
 #yellow {
     background-color:#f6bd60 ;
-    margin-right: 1vw;
 }
 
 #yellow:hover {
@@ -107,6 +107,8 @@ button {
 
 #green {
     background-color: #84a98c;
+    margin-left: 1vw;
+    margin-right: 1vw;
 }
 
 #green:hover {
@@ -119,8 +121,6 @@ button {
 
 #blue {
     background-color: #118ab2;
-    margin-left: 1vw;
-    margin-right: 1vw;
 }
 
 #blue:hover {
@@ -133,6 +133,8 @@ button {
 
 #purple {
     background-color: #7678ed;
+    margin-left: 1vw;
+    margin-right: 1vw;
 }
 
 #purple:hover {
@@ -141,4 +143,11 @@ button {
 
 #purple:active {
     background-color: #7678ed;
+}
+
+footer {
+    height: 2%;
+    font-family: 'Montserrat', sans-serif;
+    font-size: x-small;
+    text-align: center;
 }

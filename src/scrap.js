@@ -324,3 +324,31 @@
 
   // add on click for the button toggle
   
+
+
+  /// set color  //
+
+  // return (
+  // <section className="colorButtons">
+  //   <button id="red" onClick={()=>{
+  //     color = red;
+  //   }}>
+  //   red
+  //   </button>
+  //   <button id="orange">
+  //     orange
+  //   </button>
+  //   <button id="yellow">
+  //     yellow
+  //   </button>
+  //   <button id="green">
+  //     green
+  //   </button>
+  //   <button id="blue">
+  //     blue
+  //   </button>
+  //   <button id="purple">
+  //     purple
+  //   </button>
+  // </section>
+  // )
