@@ -100,7 +100,8 @@ const Instructions = () => {
       </p>
       <p>
         mobile: use one finger to rotate and turn cube,
-        use two fingers to zoom in or out by pinching and pushing,
+        use two fingers to zoom in or out by pinching
+        fingers together or pulling fingers apart,
         or keep one finger stationary on the space background
         and use another finger to move the cube
       </p>
