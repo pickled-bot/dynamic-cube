@@ -94,6 +94,8 @@ const Instructions = () => {
       <p className='grey'>(scroll)</p>
       <p>
         click or press on the (rotate off / rotate on) button to toggle rotation animation
+      </p>
+      <p>
         click or press on a color button to change the color of the cube
       </p>
       <p>
@@ -103,8 +105,8 @@ const Instructions = () => {
         and use another finger to move the cube
       </p>
       <p>
-        desktop: left click to rotate cute, right click to move cube
-        press buttons on left to adjust elements in cube
+        desktop: left click to rotate cube, right click to move cube through space,
+        use the scroll wheel to make the cube larger or smaller
       </p>
     </div>
   )
