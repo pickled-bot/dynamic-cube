@@ -6,6 +6,7 @@ import * as THREE from 'three';
 import {Canvas, useFrame} from '@react-three/fiber';
 // import { AmbientLight, BoxGeometry, MeshStandardMaterial } from 'three';
 import {OrbitControls, softShadows} from '@react-three/drei'
+import { Scene } from 'three';
 
 const red = new THREE.Color("#f28482");
 const yellow = new THREE.Color("#f6bd60");
@@ -17,7 +18,73 @@ const purple = new THREE.Color("#7678ed");
 const colorArray = [{color:red, label: 'red'}, {color: orange, label: 'orange'}, {color:yellow, label: 'yellow'},
 {color:green, label: 'green'},  {color: blue, label:'blue'}, {color: purple, label: 'purple'}];
 
+let positions = [];
+let normals = [];
+let uvs = [];
+
+const cubeVertices = [
+  // front
+  { pos: [-1, -1,  1], norm: [ 0,  0,  1], uv: [0, 1], },
+  { pos: [ 1, -1,  1], norm: [ 0,  0,  1], uv: [1, 1], },
+  { pos: [-1,  1,  1], norm: [ 0,  0,  1], uv: [0, 0], },
+
+  { pos: [-1,  1,  1], norm: [ 0,  0,  1], uv: [0, 0], },
+  { pos: [ 1, -1,  1], norm: [ 0,  0,  1], uv: [1, 1], },
+  { pos: [ 1,  1,  1], norm: [ 0,  0,  1], uv: [1, 0], },
+  // right
+  { pos: [ 1, -1,  1], norm: [ 1,  0,  0], uv: [0, 1], },
+  { pos: [ 1, -1, -1], norm: [ 1,  0,  0], uv: [1, 1], },
+  { pos: [ 1,  1,  1], norm: [ 1,  0,  0], uv: [0, 0], },
+
+  { pos: [ 1,  1,  1], norm: [ 1,  0,  0], uv: [0, 0], },
+  { pos: [ 1, -1, -1], norm: [ 1,  0,  0], uv: [1, 1], },
+  { pos: [ 1,  1, -1], norm: [ 1,  0,  0], uv: [1, 0], },
+  // back
+  { pos: [ 1, -1, -1], norm: [ 0,  0, -1], uv: [0, 1], },
+  { pos: [-1, -1, -1], norm: [ 0,  0, -1], uv: [1, 1], },
+  { pos: [ 1,  1, -1], norm: [ 0,  0, -1], uv: [0, 0], },
+
+  { pos: [ 1,  1, -1], norm: [ 0,  0, -1], uv: [0, 0], },
+  { pos: [-1, -1, -1], norm: [ 0,  0, -1], uv: [1, 1], },
+  { pos: [-1,  1, -1], norm: [ 0,  0, -1], uv: [1, 0], },
+  // left
+  { pos: [-1, -1, -1], norm: [-1,  0,  0], uv: [0, 1], },
+  { pos: [-1, -1,  1], norm: [-1,  0,  0], uv: [1, 1], },
+  { pos: [-1,  1, -1], norm: [-1,  0,  0], uv: [0, 0], },
+
+  { pos: [-1,  1, -1], norm: [-1,  0,  0], uv: [0, 0], },
+  { pos: [-1, -1,  1], norm: [-1,  0,  0], uv: [1, 1], },
+  { pos: [-1,  1,  1], norm: [-1,  0,  0], uv: [1, 0], },
+  // top
+  { pos: [ 1,  1, -1], norm: [ 0,  1,  0], uv: [0, 1], },
+  { pos: [-1,  1, -1], norm: [ 0,  1,  0], uv: [1, 1], },
+  { pos: [ 1,  1,  1], norm: [ 0,  1,  0], uv: [0, 0], },
+
+  { pos: [ 1,  1,  1], norm: [ 0,  1,  0], uv: [0, 0], },
+  { pos: [-1,  1, -1], norm: [ 0,  1,  0], uv: [1, 1], },
+  { pos: [-1,  1,  1], norm: [ 0,  1,  0], uv: [1, 0], },
+  // bottom
+  { pos: [ 1, -1,  1], norm: [ 0, -1,  0], uv: [0, 1], },
+  { pos: [-1, -1,  1], norm: [ 0, -1,  0], uv: [1, 1], },
+  { pos: [ 1, -1, -1], norm: [ 0, -1,  0], uv: [0, 0], },
+
+  { pos: [ 1, -1, -1], norm: [ 0, -1,  0], uv: [0, 0], },
+  { pos: [-1, -1,  1], norm: [ 0, -1,  0], uv: [1, 1], },
+  { pos: [-1, -1, -1], norm: [ 0, -1,  0], uv: [1, 0], },
+];
+// translate the 36 vertices into 3 parallel arrays
+
+for (const vertex of cubeVertices) {
+  positions.push(...vertex.pos);
+  normals.push(...vertex.norm);
+  uvs.push(...vertex.uv);
+};
+
+// create a variable to hold the location of planes
+
+
 const CubeRendering = ({animate, color}) => {
+
   return (
     <Cube
     animate = {animate}
@@ -27,9 +94,9 @@ const CubeRendering = ({animate, color}) => {
 
 
 const Cube = ({animate, color}) => {
-  let boxWidth = 1;
-  let boxHeight = 1;
-  let boxDepth = 1;
+  let boxWidth = 3;
+  let boxHeight = 3;
+  let boxDepth = 3;
   let bwSegments = 1;
   let bhSegments = 1;
   let bdSegments = 1;
@@ -43,15 +110,21 @@ const Cube = ({animate, color}) => {
       }
   });
 
+  window.debugCube = cubeRef;
+
   return (
     <mesh ref={cubeRef} >
-      <boxGeometry args={[boxWidth,boxHeight,boxDepth, bwSegments, bhSegments, bdSegments]} />
+      <boxGeometry 
+        args={[boxWidth,boxHeight,boxDepth, bwSegments, bhSegments, bdSegments]} 
+        attatch="geometry"
+        />
       {/* <planeGeometry args={[boxWidth,boxHeight]}/> */}
-      <meshStandardMaterial color={color} clipShadows={true}/>
+      <meshStandardMaterial color={color} clipShadows={true} attatch="material"/>
       <OrbitControls 
-      zoomSpeed={0.25} 
-      minZoom={40}
-      maxZoom={1000}/>
+        zoomSpeed={0.25} 
+        minZoom={1}
+        maxZoom={1000}
+        onChange={({...args})=>{console.log("**orbitControls change**", args)}}/>
     </mesh>
   );
 };
@@ -72,6 +145,38 @@ const ToggleColor = ({setCubeColor}) => {
   );
 };
 
+
+
+const PlaneRender = ({animate, color, position}) => {
+  return (
+    <group>
+      <Plane animate={animate} color={color}/>
+      <Plane animate={animate} color={color}/>
+      <OrbitControls 
+        zoomSpeed={0.25} 
+        minZoom={1}
+        maxZoom={1000}
+        onChange={({...args})=>{console.log("**orbitControls change**", args)}}/>
+    </group>
+  )
+}
+
+const Plane = ({animate, color}) => {
+  const planeRef = useRef();
+  return (
+    <mesh ref={planeRef}>
+    {/* <bufferGeometry>
+      <bufferAttribute attatch="attributes-position" count={Float32Array(positions)} />
+    </bufferGeometry> */}
+    <planeGeometry animate={animate} color={color}/>
+    <meshStandardMaterial color={color} clipShadows={true} attach="material"/>
+    </mesh>
+  )
+};
+// creating a function to handle ONE plane
+
+// const togglePlanes
+// creating a function to handle multiple planes
 
 const Instructions = () => {
   return (
@@ -138,10 +243,11 @@ const App = () => {
         <ToggleColor setCubeColor={setCubeColor}/>
       </div>
       <div id="canvasContainer">
-        <Canvas camera={{position:[1,1,1], zoom:300}} gl={{antialias:false}} orthographic shadows dpr={[1,2]}>
+        <Canvas camera={{position:[3,3,3], zoom:50}} gl={{antialias:false}} orthographic shadows dpr={[1,2]}>
           <ambientLight intensity={0.5}/>
-          <directionalLight position={[3,1,6]} castShadow intensity={0.5}/>
+          <directionalLight position={[3,1,6]} castShadow intensity={1}/>
           <CubeRendering animate={animate} color={color}/>
+          {/* <PlaneRender animate={animate} color={color}/> */}
         </Canvas>
       </div>
       <footer>
