@@ -8,14 +8,18 @@ import {Canvas, useFrame} from '@react-three/fiber';
 import {OrbitControls, softShadows} from '@react-three/drei'
 
 const red = new THREE.Color("#f28482");
-const yellow = new THREE.Color("#f6bd60");
-const blue = new THREE.Color("#118ab2");
-const green = new THREE.Color("#84a98c");
 const orange = new THREE.Color("#f4a261");
+const yellow = new THREE.Color("#f6bd60");
+const green = new THREE.Color("#84a98c");
+const blue = new THREE.Color("#118ab2");
 const purple = new THREE.Color("#7678ed");
 
-const colorArray = [{color:red, label: 'red'}, {color: orange, label: 'orange'}, {color:yellow, label: 'yellow'},
-{color:green, label: 'green'},  {color: blue, label:'blue'}, {color: purple, label: 'purple'}];
+const colorArray = [{color:red, label: 'red', hex:'f28482'},
+{color: orange, label: 'orange', hex: 'f4a261'},
+{color:yellow, label: 'yellow', hex: 'f6bd60'},
+{color:green, label: 'green', hex: '84a98c'}, 
+{color: blue, label:'blue', hex: '118ab2'},
+{color: purple, label: 'purple', hex: '7678ed'}];
 
 const CubeRendering = ({animate, color}) => {
   return (
@@ -43,6 +47,9 @@ const Cube = ({animate, color}) => {
       }
   });
 
+  
+  
+
   return (
     <mesh ref={cubeRef} >
       <boxGeometry args={[boxWidth,boxHeight,boxDepth, bwSegments, bhSegments, bdSegments]} />
@@ -67,9 +74,16 @@ const ToggleColor = ({setCubeColor}) => {
             setCubeColor(color);
           }} key = {label}>{label}</button>
         )
-      })}
+      })} 
     </section>
   );
+};
+
+const RotationSpeedUp = () => {
+  const cubeRef = Cube.useRef();
+
+  cubeRef.current.rotation.y += 0.025;
+  cubeRef.current.rotation.x += 0.025;
 };
 
 
@@ -84,7 +98,8 @@ const Instructions = () => {
         click or press on the (rotate off / rotate on) button to toggle rotation animation
       </p>
       <p>
-        click or press on a color button to change the color of the cube
+        click or press on a color button or add any
+        hex code color to the input box to change the color of the cube.
       </p>
       <p>
         mobile: use one finger to rotate and turn cube,
@@ -101,10 +116,53 @@ const Instructions = () => {
   )
 }
 
+const ColorInput = ({setCubeColor, color}) => {
+  const [colorHex, setColorHex] = useState("#84a98c")
+  // const cubeRef = useRef();
+
+  const onInput =(event ) => {
+    // const newColor = colorHex.slice();
+    // console.log(event.target.value)
+    setColorHex(event.target.value)
+  }
+  
+  const onSubmit = (event) => {
+    console.log("onSubmit")
+    if (event.key === "Enter") {
+      setCubeColor(colorHex)
+    }
+  }
+  console.log(color)
+  const RGBToHex = (color)=>{
+    let r = (color.r*255).toString(16);
+    let g = (color.g*255).toString(16);
+    let b = (color.b*255).toString(16);
+
+    if (r.length === 1){
+      r = "0"+ r;
+    }
+    if (g.length === 1) {
+      g = "0" + g;
+    }
+    if (b.length === 1) {
+      b = "0" + g;
+    }
+    return "#" + r + g + b;
+  };
+  console.log(RGBToHex(color));
+  return(
+    <>
+    <span>hex color:</span>
+    <input type="text" key={RGBToHex(color)} defaultValue={RGBToHex(color)} onChange={onInput} onKeyDown={onSubmit}/>
+    </>
+  );
+};
+
 
 const App = () => {
   const [buttonText, setButtonText] = useState("rotation off");
-  const [color, setColor] = useState("#84a98c");
+  const [color, setColor] = useState(green);
+  // const [animateSpeed, setAnimateSpeed] = useState()
   const animate = useRef(true);
   let newText = "";
 
@@ -118,9 +176,15 @@ const App = () => {
     setButtonText(newText);
   };
 
+  // const updateColor = (hexColor) => {
+  //   setColor(hexColor);
+  //   //maybe instead use setCubeColor 
+  // };
+
 
   const setCubeColor = useCallback((newColor) =>{
-    setColor(newColor);
+    let threeColor = new THREE.Color(newColor)
+    setColor(threeColor);
   }, [setColor])  
 
   return (
@@ -135,8 +199,15 @@ const App = () => {
           {rotationButtonTxtToggle();
           (animate.current = !animate.current)}}>{buttonText}
         </button>
+        <button id="animateUp" onClick={() =>
+        {RotationSpeedUp();
+        }}>
+          &gt;&gt;&gt;
+        </button>
         <ToggleColor setCubeColor={setCubeColor}/>
+        <ColorInput  setCubeColor={setCubeColor} color={color} />
       </div>
+
       <div id="canvasContainer">
         <Canvas camera={{position:[1,1,1], zoom:300}} gl={{antialias:false}} orthographic shadows dpr={[1,2]}>
           <ambientLight intensity={0.5}/>
