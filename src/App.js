@@ -21,16 +21,19 @@ const colorArray = [{color:red, label: 'red', hex:'f28482'},
 {color: blue, label:'blue', hex: '118ab2'},
 {color: purple, label: 'purple', hex: '7678ed'}];
 
-const CubeRendering = ({animate, color}) => {
+
+const CubeRendering = ({animate, color, animateSpeed}) => {
   return (
     <Cube
     animate = {animate}
-    color = {color}/>
+    color = {color}
+    animateSpeed = {animateSpeed}/>
+
   );
 };
 
 
-const Cube = ({animate, color}) => {
+const Cube = ({animate, color, animateSpeed}) => {
   let boxWidth = 1;
   let boxHeight = 1;
   let boxDepth = 1;
@@ -42,8 +45,8 @@ const Cube = ({animate, color}) => {
 
   useFrame((state) => {
       if (animate.current) {
-        cubeRef.current.rotation.y += 0.005;
-        cubeRef.current.rotation.x += 0.005;
+        cubeRef.current.rotation.y += animateSpeed;
+        cubeRef.current.rotation.x += animateSpeed;
       }
   });
 
@@ -162,7 +165,8 @@ const ColorInput = ({setCubeColor, color}) => {
 const App = () => {
   const [buttonText, setButtonText] = useState("rotation off");
   const [color, setColor] = useState(green);
-  // const [animateSpeed, setAnimateSpeed] = useState()
+  const [animateSpeed, setAnimateSpeed] = useState(0.005)
+
   const animate = useRef(true);
   let newText = "";
 
@@ -175,12 +179,6 @@ const App = () => {
     }
     setButtonText(newText);
   };
-
-  // const updateColor = (hexColor) => {
-  //   setColor(hexColor);
-  //   //maybe instead use setCubeColor 
-  // };
-
 
   const setCubeColor = useCallback((newColor) =>{
     let threeColor = new THREE.Color(newColor)
@@ -195,12 +193,17 @@ const App = () => {
       </header>
       <Instructions />
       <div id="buttons">
+        <button id="animateDwn" onClick={() =>
+          {setAnimateSpeed(animateSpeed - 0.005);
+          }}>
+            &lt;&lt;&lt;
+        </button>
         <button id="animateBtn" onClick={() =>
           {rotationButtonTxtToggle();
           (animate.current = !animate.current)}}>{buttonText}
         </button>
         <button id="animateUp" onClick={() =>
-        {RotationSpeedUp();
+        {setAnimateSpeed(animateSpeed + 0.005);
         }}>
           &gt;&gt;&gt;
         </button>
@@ -212,7 +215,7 @@ const App = () => {
         <Canvas camera={{position:[1,1,1], zoom:300}} gl={{antialias:false}} orthographic shadows dpr={[1,2]}>
           <ambientLight intensity={0.5}/>
           <directionalLight position={[3,1,6]} castShadow intensity={0.5}/>
-          <CubeRendering animate={animate} color={color}/>
+          <CubeRendering animate={animate} color={color} animateSpeed={animateSpeed}/>
         </Canvas>
       </div>
       <footer>
