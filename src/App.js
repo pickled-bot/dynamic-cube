@@ -32,7 +32,6 @@ const CubeRendering = ({animate, color, animateSpeed}) => {
   );
 };
 
-
 const Cube = ({animate, color, animateSpeed}) => {
   let boxWidth = 1;
   let boxHeight = 1;
@@ -190,26 +189,26 @@ const App = () => {
     <div>
       <header>
         <h1>dynamic cube generator</h1>
-      </header>
-      <Instructions />
-      <div id="buttons">
-        <button id="animateDwn" onClick={() =>
-          {setAnimateSpeed(animateSpeed - 0.005);
+        <Instructions />
+        <div id="buttons">
+          <button id="animateDwn" onClick={() =>
+            {setAnimateSpeed(animateSpeed - 0.005);
+            }}>
+              &lt;&lt;&lt;
+          </button>
+          <button id="animateBtn" onClick={() =>
+            {rotationButtonTxtToggle();
+              (animate.current = !animate.current)}}>{buttonText}
+          </button>
+          <button id="animateUp" onClick={() =>
+          {setAnimateSpeed(animateSpeed + 0.005);
           }}>
-            &lt;&lt;&lt;
-        </button>
-        <button id="animateBtn" onClick={() =>
-          {rotationButtonTxtToggle();
-          (animate.current = !animate.current)}}>{buttonText}
-        </button>
-        <button id="animateUp" onClick={() =>
-        {setAnimateSpeed(animateSpeed + 0.005);
-        }}>
-          &gt;&gt;&gt;
-        </button>
-        <ToggleColor setCubeColor={setCubeColor}/>
-        <ColorInput  setCubeColor={setCubeColor} color={color} />
-      </div>
+            &gt;&gt;&gt;
+          </button>
+          <ToggleColor setCubeColor={setCubeColor}/>
+          <ColorInput  setCubeColor={setCubeColor} color={color} />
+        </div>
+      </header>
 
       <div id="canvasContainer">
         <Canvas camera={{position:[1,1,1], zoom:300}} gl={{antialias:false}} orthographic shadows dpr={[1,2]}>
