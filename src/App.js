@@ -98,6 +98,7 @@ const Instructions = () => {
       <p className='grey'>(scroll)</p>
       <p>
         click or press on the (rotate off / rotate on) button to toggle rotation animation
+        click &gt;&gt;&gt; to speed up the rotation and &lt;&lt;&lt; to slow down rotation
       </p>
       <p>
         click or press on a color button or add any
