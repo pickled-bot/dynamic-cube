@@ -111,11 +111,8 @@ const Instructions = () => {
 
 const ColorInput = ({setCubeColor, color}) => {
   const [colorHex, setColorHex] = useState("#84a98c")
-  // const cubeRef = useRef();
 
   const onInput =(event ) => {
-    // const newColor = colorHex.slice();
-    // console.log(event.target.value)
     setColorHex(event.target.value)
   }
   
@@ -201,7 +198,7 @@ const App = () => {
       </div>
 
       <div id="canvasContainer">
-        <Canvas camera={{position:[1,1,1], zoom:300}} gl={{antialias:false}} orthographic shadows dpr={[1,2]}>
+        <Canvas camera={{position:[1,1,1], zoom:300}} gl={{antialias:true}} orthographic shadows dpr={[1,2]}>
           <ambientLight intensity={0.5}/>
           <directionalLight position={[3,1,6]} castShadow intensity={0.5}/>
           <CubeRendering animate={animate} color={color} animateSpeed={animateSpeed}/>
