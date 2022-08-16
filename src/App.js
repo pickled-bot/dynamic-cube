@@ -1,10 +1,8 @@
 import './App.css';
 import ReactDOM from 'react-dom';
 import React, {useState, useRef, useCallback} from 'react';
-// import Cube from './components/Cube.js';
 import * as THREE from 'three';
 import {Canvas, useFrame} from '@react-three/fiber';
-// import { AmbientLight, BoxGeometry, MeshStandardMaterial } from 'three';
 import {OrbitControls, softShadows} from '@react-three/drei'
 
 const red = new THREE.Color("#f28482");
@@ -32,6 +30,7 @@ const CubeRendering = ({animate, color, animateSpeed}) => {
   );
 };
 
+
 const Cube = ({animate, color, animateSpeed}) => {
   let boxWidth = 1;
   let boxHeight = 1;
@@ -48,10 +47,7 @@ const Cube = ({animate, color, animateSpeed}) => {
         cubeRef.current.rotation.x += animateSpeed;
       }
   });
-
   
-  
-
   return (
     <mesh ref={cubeRef} >
       <boxGeometry args={[boxWidth,boxHeight,boxDepth, bwSegments, bhSegments, bdSegments]} />
@@ -79,13 +75,6 @@ const ToggleColor = ({setCubeColor}) => {
       })} 
     </section>
   );
-};
-
-const RotationSpeedUp = () => {
-  const cubeRef = Cube.useRef();
-
-  cubeRef.current.rotation.y += 0.025;
-  cubeRef.current.rotation.x += 0.025;
 };
 
 
@@ -118,6 +107,7 @@ const Instructions = () => {
     </div>
   )
 }
+
 
 const ColorInput = ({setCubeColor, color}) => {
   const [colorHex, setColorHex] = useState("#84a98c")
@@ -170,7 +160,6 @@ const App = () => {
   const animate = useRef(true);
   let newText = "";
 
-  
   const rotationButtonTxtToggle = () => {
     if (buttonText === "rotation off") {
       newText = "rotation on";
