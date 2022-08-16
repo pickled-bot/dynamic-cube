@@ -90,8 +90,8 @@ const Instructions = () => {
         click &gt;&gt;&gt; to speed up the rotation and &lt;&lt;&lt; to slow down rotation
       </p>
       <p>
-        click or press on a color button or add any
-        hex code color to the input box to change the color of the cube.
+        click or press on a color button or type any
+        hex code color to the input box and press enter to change the color of the cube.
       </p>
       <p>
         mobile: use one finger to rotate and turn cube,
