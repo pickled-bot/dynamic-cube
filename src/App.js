@@ -144,10 +144,10 @@ const ColorInput = ({setCubeColor, color}) => {
   };
   console.log(RGBToHex(color));
   return(
-    <>
+    <div>
     <span>hex color:</span>
     <input type="text" key={RGBToHex(color)} defaultValue={RGBToHex(color)} onChange={onInput} onKeyDown={onSubmit}/>
-    </>
+    </div>
   );
 };
 
