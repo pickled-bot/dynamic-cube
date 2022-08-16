@@ -1,16 +1,16 @@
 
-## THE DYNAMIC CUBE GENERATOR ##
+## The Dynamic Cube Generator ##
 This project was inspired by architecture models to develop an understanding of digitally rendering 3D objects as a capstone project at Ada Developer's Academy by Shelby Faulconer, class C17 Sea Turtles.
 
-## DEPENDENCIES ##
+## Dependencies ##
 
-ReactDOM from 'react-dom';
-React, {useState, useRef, useCallback} from 'react';
-All dependencies as THREE from 'three';
-{Canvas, useFrame} from '@react-three/fiber';
-{OrbitControls, softShadows} from '@react-three/drei'
+* ReactDOM from 'react-dom';
+* React, {useState, useRef, useCallback} from 'react';
+* All dependencies as THREE from 'three';
+* {Canvas, useFrame} from '@react-three/fiber';
+* {OrbitControls, softShadows} from '@react-three/drei'
 
-## APP SET UP ##
+## Set Up ##
 
 The app can be ran easiest at the Heroku-deployed web app found at this URL: http://dynamic-cube.herokuapp.com/ 
 The app can also be ran locally by the terminal command, "yarn start", with more instructions on using React and react-apps below.
@@ -18,7 +18,7 @@ The app can also be ran locally by the terminal command, "yarn start", with more
 
 
 
-## base React Instructions follow: 
+## React Instructions: 
 
 
 # Getting Started with Create React App
