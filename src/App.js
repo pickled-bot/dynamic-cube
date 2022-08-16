@@ -180,25 +180,25 @@ const App = () => {
       <header>
         <h1>dynamic cube generator</h1>
         <Instructions />
-        <div id="buttons">
-          <button id="animateDwn" onClick={() =>
-            {setAnimateSpeed(animateSpeed - 0.005);
-            }}>
-              &lt;&lt;&lt;
-          </button>
-          <button id="animateBtn" onClick={() =>
-            {rotationButtonTxtToggle();
-              (animate.current = !animate.current)}}>{buttonText}
-          </button>
-          <button id="animateUp" onClick={() =>
-          {setAnimateSpeed(animateSpeed + 0.005);
-          }}>
-            &gt;&gt;&gt;
-          </button>
-          <ToggleColor setCubeColor={setCubeColor}/>
-          <ColorInput  setCubeColor={setCubeColor} color={color} />
-        </div>
       </header>
+      <div id="buttons">
+        <button id="animateDwn" onClick={() =>
+          {setAnimateSpeed(animateSpeed - 0.005);
+          }}>
+            &lt;&lt;&lt;
+        </button>
+        <button id="animateBtn" onClick={() =>
+          {rotationButtonTxtToggle();
+            (animate.current = !animate.current)}}>{buttonText}
+        </button>
+        <button id="animateUp" onClick={() =>
+        {setAnimateSpeed(animateSpeed + 0.005);
+        }}>
+          &gt;&gt;&gt;
+        </button>
+        <ToggleColor setCubeColor={setCubeColor}/>
+        <ColorInput  setCubeColor={setCubeColor} color={color} />
+      </div>
 
       <div id="canvasContainer">
         <Canvas camera={{position:[1,1,1], zoom:300}} gl={{antialias:false}} orthographic shadows dpr={[1,2]}>

@@ -34,12 +34,13 @@ h1 {
 
 #instructions {
     overflow-y: scroll;
-    width: 100%;
+    width: 96%;
     height: 21vh;
     margin-bottom: 1vh;
+    margin-right: 0.5vw;
+    margin-top: 0.5vh;
     font-family: 'Montserrat', sans-serif;
 }
-
 
 #instructions h2{
     text-align: right;
@@ -58,35 +59,29 @@ h1 {
 #buttons {
     width: 100%;
     display: flex;
-    margin-top: 0.5vh;
-    margin-left: 5%;
+    flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-evenly;
+    align-content: center;
+    height: 3vh;
+    margin-bottom: 1vh;
+    overflow-y:hidden;
+    overflow-x:scroll;
 }
 
 button {
-    margin-bottom: 1vh;
     font-family: 'Montserrat', sans-serif;
     border-radius: 4px;
     border-style: double;
     border-color: #2f3e46;
-    padding: 4px;
-    margin-top: 1vh;
 }
 
-#animateBtn {
-    margin: 15px;
-    margin-bottom: 0;
-    font-size: 1.5rem;
-}
 
 #animateUp {
-    margin-top: 4vh;
     align-self: center;
 }
 
 #animateDwn {
-    margin-top: 4vh;
     align-self: center;
 }
 
