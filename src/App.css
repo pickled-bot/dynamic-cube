@@ -12,7 +12,12 @@ header {
     margin-top: 1vh;
     display: grid;
     gap: 0.25rem;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr))
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    height: 20vh;
+}
+
+span {
+    align-self: center;
 }
 
 h1 {
@@ -27,10 +32,11 @@ h1 {
 #instructions {
     overflow-y: scroll;
     width: 100%;
-    height: 150px;
+    height: 100%;
     margin-bottom: 1vh;
     font-family: 'Montserrat', sans-serif;
 }
+
 
 #instructions h2{
     text-align: right;
@@ -48,11 +54,11 @@ h1 {
 
 
 #buttons {
-    /* display: flex; */
+    display: flex;
     margin-top: 0.5vh;
     margin-left: 5%;
     flex-wrap: wrap;
-    /* justify-content: center; */
+    justify-content: center;
 }
 
 button {
@@ -71,7 +77,15 @@ button {
     font-size: 1.5rem;
 }
 
+#animateUp {
+    margin-top: 4vh;
+    align-self: center;
+}
 
+#animateDwn {
+    margin-top: 4vh;
+    align-self: center;
+}
 
 #red {
     background-color: #f28482;
@@ -155,6 +169,7 @@ button {
 
 input {
     margin-left: 2vh;
+    align-self: center;
 }
 
 footer {
