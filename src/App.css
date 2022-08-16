@@ -34,7 +34,7 @@ h1 {
 #instructions {
     overflow-y: scroll;
     width: 100%;
-    height: 100%;
+    height: 21vh;
     margin-bottom: 1vh;
     font-family: 'Montserrat', sans-serif;
 }
