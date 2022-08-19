@@ -38,7 +38,7 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "prettier --write"
+      "yarn prettier --write"
     ]
   },
   "browserslist": {
