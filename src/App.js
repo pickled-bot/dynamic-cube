@@ -45,7 +45,7 @@ const Cube = ({ animate, color, animateSpeed }) => {
     <mesh ref={cubeRef}>
       <boxGeometry
         args={[
-            boxWidth,
+          boxWidth,
           boxHeight,
           boxDepth,
           bwSegments,
