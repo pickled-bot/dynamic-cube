@@ -1,5 +1,4 @@
 import './App.css';
-import ReactDOM from 'react-dom';
 import React, {useState, useRef, useCallback} from 'react';
 import * as THREE from 'three';
 import {Canvas, useFrame} from '@react-three/fiber';
@@ -23,9 +22,10 @@ const colorArray = [{color:red, label: 'red', hex:'f28482'},
 const CubeRendering = ({animate, color, animateSpeed}) => {
   return (
     <Cube
-    animate = {animate}
-    color = {color}
-    animateSpeed = {animateSpeed}/>
+      animate={animate}
+      color={color}
+      animateSpeed={animateSpeed}
+    />
 
   );
 };
@@ -41,7 +41,7 @@ const Cube = ({animate, color, animateSpeed}) => {
 
   const cubeRef = useRef();
 
-  useFrame((state) => {
+  useFrame(() => {
       if (animate.current) {
         cubeRef.current.rotation.y += animateSpeed;
         cubeRef.current.rotation.x += animateSpeed;
@@ -78,7 +78,7 @@ const ToggleColor = ({setCubeColor}) => {
 };
 
 
-const Instructions = () => {
+export const Instructions = () => {
   return (
     <div id="instructions">
       <h2>
@@ -152,9 +152,9 @@ const ColorInput = ({setCubeColor, color}) => {
 const App = () => {
   const [buttonText, setButtonText] = useState("rotation off");
   const [color, setColor] = useState(green);
-  const [animateSpeed, setAnimateSpeed] = useState(0.005)
+  const [animateSpeed, setAnimateSpeed] = useState(0.005);
+  const [animate, setAnimate] = useState(true);
 
-  const animate = useRef(true);
   let newText = "";
 
   const rotationButtonTxtToggle = () => {
@@ -184,10 +184,10 @@ const App = () => {
           }}>
             &lt;&lt;&lt;
         </button>
-        <button id="animateBtn" onClick={() =>
-          {rotationButtonTxtToggle();
-            (animate.current = !animate.current)}}>{buttonText}
-        </button>
+        <button id="animateBtn" onClick={() => {
+          rotationButtonTxtToggle();
+          setAnimate(!animate)
+        }}>{buttonText}</button>
         <button id="animateUp" onClick={() =>
         {setAnimateSpeed(animateSpeed + 0.005);
         }}>
@@ -216,6 +216,4 @@ const App = () => {
   );
 }
 
-
-ReactDOM.render(<App/>, document.getElementById('root'));
 export default App;
