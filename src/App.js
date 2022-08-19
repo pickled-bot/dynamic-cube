@@ -1,37 +1,30 @@
 import './App.css';
-import ReactDOM from 'react-dom';
-import React, {useState, useRef, useCallback} from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import * as THREE from 'three';
-import {Canvas, useFrame} from '@react-three/fiber';
-import {OrbitControls, softShadows} from '@react-three/drei'
+import { Canvas, useFrame } from '@react-three/fiber';
+import { OrbitControls } from '@react-three/drei';
 
-const red = new THREE.Color("#f28482");
-const orange = new THREE.Color("#f4a261");
-const yellow = new THREE.Color("#f6bd60");
-const green = new THREE.Color("#84a98c");
-const blue = new THREE.Color("#118ab2");
-const purple = new THREE.Color("#7678ed");
+const red = new THREE.Color('#f28482');
+const orange = new THREE.Color('#f4a261');
+const yellow = new THREE.Color('#f6bd60');
+const green = new THREE.Color('#84a98c');
+const blue = new THREE.Color('#118ab2');
+const purple = new THREE.Color('#7678ed');
 
-const colorArray = [{color:red, label: 'red', hex:'f28482'},
-{color: orange, label: 'orange', hex: 'f4a261'},
-{color:yellow, label: 'yellow', hex: 'f6bd60'},
-{color:green, label: 'green', hex: '84a98c'}, 
-{color: blue, label:'blue', hex: '118ab2'},
-{color: purple, label: 'purple', hex: '7678ed'}];
+const colorArray = [
+  { color: red, label: 'red', hex: 'f28482' },
+  { color: orange, label: 'orange', hex: 'f4a261' },
+  { color: yellow, label: 'yellow', hex: 'f6bd60' },
+  { color: green, label: 'green', hex: '84a98c' },
+  { color: blue, label: 'blue', hex: '118ab2' },
+  { color: purple, label: 'purple', hex: '7678ed' },
+];
 
-
-const CubeRendering = ({animate, color, animateSpeed}) => {
-  return (
-    <Cube
-    animate = {animate}
-    color = {color}
-    animateSpeed = {animateSpeed}/>
-
-  );
+const CubeRendering = ({ animate, color, animateSpeed }) => {
+  return <Cube animate={animate} color={color} animateSpeed={animateSpeed} />;
 };
 
-
-const Cube = ({animate, color, animateSpeed}) => {
+const Cube = ({ animate, color, animateSpeed }) => {
   let boxWidth = 1;
   let boxHeight = 1;
   let boxDepth = 1;
@@ -41,181 +34,211 @@ const Cube = ({animate, color, animateSpeed}) => {
 
   const cubeRef = useRef();
 
-  useFrame((state) => {
-      if (animate.current) {
-        cubeRef.current.rotation.y += animateSpeed;
-        cubeRef.current.rotation.x += animateSpeed;
-      }
+  useFrame(() => {
+    if (animate.current) {
+      cubeRef.current.rotation.y += animateSpeed;
+      cubeRef.current.rotation.x += animateSpeed;
+    }
   });
-  
+
   return (
-    <mesh ref={cubeRef} >
-      <boxGeometry args={[boxWidth,boxHeight,boxDepth, bwSegments, bhSegments, bdSegments]} />
+    <mesh ref={cubeRef}>
+      <boxGeometry
+        args={[
+          boxWidth,
+          boxHeight,
+          boxDepth,
+          bwSegments,
+          bhSegments,
+          bdSegments,
+        ]}
+      />
       {/* <planeGeometry args={[boxWidth,boxHeight]}/> */}
-      <meshStandardMaterial color={color} clipShadows={true}/>
-      <OrbitControls 
-      zoomSpeed={0.25} 
-      minZoom={40}
-      maxZoom={1000}/>
+      <meshStandardMaterial color={color} clipShadows={true} />
+      <OrbitControls zoomSpeed={0.25} minZoom={40} maxZoom={1000} />
     </mesh>
   );
 };
 
-
-const ToggleColor = ({setCubeColor}) => {
+const ToggleColor = ({ setCubeColor }) => {
   return (
     <section className="colorButtons">
-      {colorArray.map((item, i) => {
-        const {color, label} = item;
+      {colorArray.map(item => {
+        const { color, label } = item;
         return (
-          <button id={label} onClick={() => {
-            setCubeColor(color);
-          }} key = {label}>{label}</button>
-        )
-      })} 
+          <button
+            id={label}
+            onClick={() => {
+              setCubeColor(color);
+            }}
+            key={label}
+          >
+            {label}
+          </button>
+        );
+      })}
     </section>
   );
 };
 
-
-const Instructions = () => {
+// exporting each component gives us a possible path for unit testing
+export const Instructions = () => {
   return (
     <div id="instructions">
-      <h2>
-      instructions
-      </h2>
-      <p className='grey'>(scroll)</p>
+      <h2>instructions</h2>
+      <p className="grey">(scroll)</p>
       <p>
-        click or press on the (rotate off / rotate on) button to toggle rotation animation
-        click &gt;&gt;&gt; to speed up the rotation and &lt;&lt;&lt; to slow down rotation
+        click or press on the (rotate off / rotate on) button to toggle rotation
+        animation click &gt;&gt;&gt; to speed up the rotation and &lt;&lt;&lt;
+        to slow down rotation
       </p>
       <p>
-        click or press on a color button or type any
-        hex code color to the input box and press enter to change the color of the cube.
+        click or press on a color button or type any hex code color to the input
+        box and press enter to change the color of the cube.
       </p>
       <p>
-        mobile: use one finger to rotate and turn cube,
-        use two fingers to zoom in or out by pinching
-        fingers together or pulling fingers apart,
-        or keep one finger stationary on the space background
-        and use another finger to move the cube
+        mobile: use one finger to rotate and turn cube, use two fingers to zoom
+        in or out by pinching fingers together or pulling fingers apart, or keep
+        one finger stationary on the space background and use another finger to
+        move the cube
       </p>
       <p>
-        desktop: left click to rotate cube, right click to move cube through space,
-        use the scroll wheel to make the cube larger or smaller
+        desktop: left click to rotate cube, right click to move cube through
+        space, use the scroll wheel to make the cube larger or smaller
       </p>
-    </div>
-  )
-}
-
-
-const ColorInput = ({setCubeColor, color}) => {
-  const [colorHex, setColorHex] = useState("#84a98c")
-
-  const onInput =(event ) => {
-    setColorHex(event.target.value)
-  }
-  
-  const onSubmit = (event) => {
-    console.log("onSubmit")
-    if (event.key === "Enter") {
-      setCubeColor(colorHex)
-    }
-  }
-  console.log(color)
-  const RGBToHex = (color)=>{
-    let r = (color.r*255).toString(16);
-    let g = (color.g*255).toString(16);
-    let b = (color.b*255).toString(16);
-
-    if (r.length === 1){
-      r = "0"+ r;
-    }
-    if (g.length === 1) {
-      g = "0" + g;
-    }
-    if (b.length === 1) {
-      b = "0" + g;
-    }
-    return "#" + r + g + b;
-  };
-  console.log(RGBToHex(color));
-  return(
-    <div>
-    <span>hex color:</span>
-    <input type="text" key={RGBToHex(color)} defaultValue={RGBToHex(color)} onChange={onInput} onKeyDown={onSubmit}/>
     </div>
   );
 };
 
+const ColorInput = ({ setCubeColor, color }) => {
+  const [colorHex, setColorHex] = useState('#84a98c');
+
+  const onInput = event => {
+    setColorHex(event.target.value);
+  };
+
+  const onSubmit = event => {
+    console.log('onSubmit');
+    if (event.key === 'Enter') {
+      setCubeColor(colorHex);
+    }
+  };
+  console.log(color);
+  const RGBToHex = color => {
+    let r = (color.r * 255).toString(16);
+    let g = (color.g * 255).toString(16);
+    let b = (color.b * 255).toString(16);
+
+    if (r.length === 1) {
+      r = '0' + r;
+    }
+    if (g.length === 1) {
+      g = '0' + g;
+    }
+    if (b.length === 1) {
+      b = '0' + g;
+    }
+    return '#' + r + g + b;
+  };
+  console.log(RGBToHex(color));
+  return (
+    <div>
+      <span>hex color:</span>
+      <input
+        type="text"
+        key={RGBToHex(color)}
+        defaultValue={RGBToHex(color)}
+        onChange={onInput}
+        onKeyDown={onSubmit}
+      />
+    </div>
+  );
+};
 
 const App = () => {
-  const [buttonText, setButtonText] = useState("rotation off");
+  const [buttonText, setButtonText] = useState('rotation off');
   const [color, setColor] = useState(green);
-  const [animateSpeed, setAnimateSpeed] = useState(0.005)
+  const [animateSpeed, setAnimateSpeed] = useState(0.005);
+  const [animate, setAnimate] = useState(true);
 
-  const animate = useRef(true);
-  let newText = "";
+  let newText = '';
 
   const rotationButtonTxtToggle = () => {
-    if (buttonText === "rotation off") {
-      newText = "rotation on";
+    if (buttonText === 'rotation off') {
+      newText = 'rotation on';
     } else {
-      newText = "rotation off"
+      newText = 'rotation off';
     }
     setButtonText(newText);
   };
 
-  const setCubeColor = useCallback((newColor) =>{
-    let threeColor = new THREE.Color(newColor)
-    setColor(threeColor);
-  }, [setColor])  
+  const setCubeColor = useCallback(
+    newColor => {
+      let threeColor = new THREE.Color(newColor);
+      setColor(threeColor);
+    },
+    [setColor],
+  );
 
   return (
-
     <div>
       <header>
         <h1>dynamic cube generator</h1>
         <Instructions />
       </header>
       <div id="buttons">
-        <button id="animateDwn" onClick={() =>
-          {setAnimateSpeed(animateSpeed - 0.005);
-          }}>
-            &lt;&lt;&lt;
+        <button
+          id="animateDwn"
+          onClick={() => {
+            setAnimateSpeed(animateSpeed - 0.005);
+          }}
+        >
+          &lt;&lt;&lt;
         </button>
-        <button id="animateBtn" onClick={() =>
-          {rotationButtonTxtToggle();
-            (animate.current = !animate.current)}}>{buttonText}
+        <button
+          id="animateBtn"
+          onClick={() => {
+            rotationButtonTxtToggle();
+            setAnimate(!animate);
+          }}
+        >
+          {buttonText}
         </button>
-        <button id="animateUp" onClick={() =>
-        {setAnimateSpeed(animateSpeed + 0.005);
-        }}>
+        <button
+          id="animateUp"
+          onClick={() => {
+            setAnimateSpeed(animateSpeed + 0.005);
+          }}
+        >
           &gt;&gt;&gt;
         </button>
-        <ToggleColor setCubeColor={setCubeColor}/>
-        <ColorInput  setCubeColor={setCubeColor} color={color} />
+        <ToggleColor setCubeColor={setCubeColor} />
+        <ColorInput setCubeColor={setCubeColor} color={color} />
       </div>
 
       <div id="canvasContainer">
-        <Canvas camera={{position:[1,1,1], zoom:300}} gl={{antialias:true}} orthographic shadows dpr={[1,2]}>
-          <ambientLight intensity={0.5}/>
-          <directionalLight position={[3,1,6]} castShadow intensity={0.5}/>
-          <CubeRendering animate={animate} color={color} animateSpeed={animateSpeed}/>
+        <Canvas
+          camera={{ position: [1, 1, 1], zoom: 300 }}
+          gl={{ antialias: true }}
+          orthographic
+          shadows
+          dpr={[1, 2]}
+        >
+          <ambientLight intensity={0.5} />
+          <directionalLight position={[3, 1, 6]} castShadow intensity={0.5} />
+          <CubeRendering
+            animate={animate}
+            color={color}
+            animateSpeed={animateSpeed}
+          />
         </Canvas>
       </div>
       <footer>
-      <p>
-      &#169; shelby r faulconer, ada c17 capstone project, 2022
-      </p>
-      <p>
-      space photo from NASA image gallery
-      </p>
+        <p>&#169; shelby r faulconer, ada c17 capstone project, 2022</p>
+        <p>space photo from NASA image gallery</p>
       </footer>
     </div>
   );
-}
+};
 
-
-ReactDOM.render(<App/>, document.getElementById('root'));
 export default App;

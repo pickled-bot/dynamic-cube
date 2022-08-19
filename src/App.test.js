@@ -1,8 +1,10 @@
 import { render, screen } from '@testing-library/react';
-import App from './App';
+import { Instructions } from './App';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+// this is just an example of a simple unit test for a single component
+// it's going to be hard to test the full app because of issues with rendering the canvas with the testing library
+test('renders the instructions', () => {
+  render(<Instructions />);
+  const title = screen.getByText(/instructions/i);
+  expect(title).toBeInTheDocument();
 });
