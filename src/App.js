@@ -77,7 +77,7 @@ const ToggleColor = ({setCubeColor}) => {
   );
 };
 
-
+// exporting each component gives us a possible path for unit testing
 export const Instructions = () => {
   return (
     <div id="instructions">
