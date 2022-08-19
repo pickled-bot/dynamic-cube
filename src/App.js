@@ -22,9 +22,9 @@ const colorArray = [{color:red, label: 'red', hex:'f28482'},
 const CubeRendering = ({animate, color, animateSpeed}) => {
   return (
     <Cube
-      animate={animate}
-      color={color}
-      animateSpeed={animateSpeed}
+        animate={animate}
+        color={color}
+        animateSpeed={animateSpeed}
     />
 
   );
