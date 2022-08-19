@@ -33,18 +33,12 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "yarn lint-staged"
     }
   },
   "lint-staged": {
-    "*.{js,jsx}": [
-      "prettier --write",
-      "eslint --fix",
-      "git add"
-    ],
-    "*.{html,css,less,ejs}": [
-      "prettier --write",
-      "git add"
+    "*.{js,jsx,ts,tsx}": [
+      "prettier --write"
     ]
   },
   "browserslist": {
