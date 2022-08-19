@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import React, {useState, useRef, useCallback} from 'react';
 import * as THREE from 'three';
 import {Canvas, useFrame} from '@react-three/fiber';
-import {OrbitControls, softShadows} from '@react-three/drei'
+import {OrbitControls} from '@react-three/drei'
 
 const red = new THREE.Color("#f28482");
 const orange = new THREE.Color("#f4a261");
@@ -65,7 +65,7 @@ const Cube = ({animate, color, animateSpeed}) => {
 const ToggleColor = ({setCubeColor}) => {
   return (
     <section className="colorButtons">
-      {colorArray.map((item, i) => {
+      {colorArray.map((item) => {
         const {color, label} = item;
         return (
           <button id={label} onClick={() => {
