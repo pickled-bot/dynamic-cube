@@ -1,7 +1,7 @@
 {
   "name": "dynamic-cube",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "@react-three/drei": "^9.19.2",
     "@react-three/fiber": "^8.2.2",
