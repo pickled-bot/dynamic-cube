@@ -118,7 +118,6 @@ const ColorInput = ({ setCubeColor, color }) => {
   };
 
   const onSubmit = event => {
-    console.log('onSubmit');
     if (event.key === 'Enter') {
       setCubeColor(colorHex);
     }
