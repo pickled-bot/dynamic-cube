@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/dynamic-cube/static/css/main.79160a22.css",
+    "main.js": "/dynamic-cube/static/js/main.f126251c.js",
+    "static/js/787.92bd6d11.chunk.js": "/dynamic-cube/static/js/787.92bd6d11.chunk.js",
+    "static/media/space.jpg": "/dynamic-cube/static/media/space.22bede671f4ecda3af22.jpg",
+    "index.html": "/dynamic-cube/index.html",
+    "main.79160a22.css.map": "/dynamic-cube/static/css/main.79160a22.css.map",
+    "main.f126251c.js.map": "/dynamic-cube/static/js/main.f126251c.js.map",
+    "787.92bd6d11.chunk.js.map": "/dynamic-cube/static/js/787.92bd6d11.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.79160a22.css",
+    "static/js/main.f126251c.js"
+  ]
+}
