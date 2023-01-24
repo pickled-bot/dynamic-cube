@@ -35,7 +35,7 @@ const Cube = ({ animate, color, animateSpeed }) => {
   const cubeRef = useRef();
 
   useFrame(() => {
-    if (animate.current) {
+    if (animate) {
       cubeRef.current.rotation.y += animateSpeed;
       cubeRef.current.rotation.x += animateSpeed;
     }
