@@ -1,7 +1,7 @@
 {
   "name": "dynamic-cube",
   "version": "0.1.0",
-  "homepage": "https://faulconershelby.github.io/dynamic-cube",
+  "homepage": ".",
   "private": true,
   "dependencies": {
     "@react-three/drei": "^9.19.2",
