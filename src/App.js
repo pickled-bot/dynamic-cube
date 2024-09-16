@@ -233,7 +233,7 @@ const App = () => {
         </Canvas>
       </div>
       <footer>
-        <p>&#169; shelby r faulconer, ada c17 capstone project, 2022</p>
+        <p>&#169; srf, ada c17 capstone project, 2022</p>
         <p>space photo from NASA image gallery</p>
       </footer>
     </div>
